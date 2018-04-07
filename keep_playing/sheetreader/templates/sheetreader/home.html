@@ -1,0 +1,52 @@
+{% extends "sheetreader/base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+{% block content %}
+<head>
+	<title></title>
+</head>
+<body>
+
+	<button class="button btn btn-primary" data-href="{% url 'sheetreader:newSheet' %}" style="float: left;"> Add New Sheet</button>
+
+	<!-- this form wraps the entire table as it tracks which rows have been selected to be deleted -->
+	<form action="{% url 'sheetreader:deleteSheets' %}" method="POST"> 
+		{% csrf_token %}
+		<button type="submit" class="btn btn-primary" name="delete" style="float: right;"> Delete Selected Sheets </button> 
+
+		<table class="table table-bordered table-hover table-sm">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col"> Sheet </th>
+					<th scope="col"> Start Reading </th>
+					<th scope="col"> Edit </th>
+					<th scope="col"> Delete </th>			
+				</tr>
+			</thead>
+			<tbody>
+				{% for sheet in sheet_data %}					
+					<tr>
+						<td scope="col" class="details"> {{ sheet }} </td>  
+						<td><button type="button" class="btn btn-primary btn-sm" data-href="{% url 'sheetreader:updateSheet' sheet.id %}"> Sheet Reader </button></td>	
+						<td><button type="button" class="btn btn-primary btn-sm" data-href="{% url 'sheetreader:updateSheet' sheet.id %}"> Edit Me </button></td>					
+						<td scope="col" class="deleteCol"> <input name="items" class="checkboxes" type="checkbox" value="{{ sheet.pk }}"> </td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+
+	<script type="text/javascript">
+		
+		$(document).ready(function($) {
+	    	$(".btn").click(function() {
+	       		window.document.location = $(this).data("href");		       			       		
+	    	});
+		});
+
+	</script>
+
+</body>
+{% endblock %}
+</html>

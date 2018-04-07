@@ -1,0 +1,55 @@
+{% extends "sheetreader/base.html" %}
+{% load static %}
+<DOCTYPE html>
+<html>
+{% block content %}
+	<head>
+		<style type="text/css">
+			.errorlist{
+				margin-top: 48px;
+			}
+			label{
+				margin-top: 10px;
+				font-weight: bold;
+
+			}
+			.submit_button {
+				background-color: #557a95;
+				display: block; 
+				margin-top: 20px; 
+				margin-left: auto; 
+				margin-right: auto;
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="container"> 
+			<h1 style="text-align: center; margin-top: 20px;"> Sheet Form </h1>
+			<form method="POST" enctype="multipart/form-data" style="margin-top: 40px;">
+				{% csrf_token %}					
+
+				
+						
+						<strong><label for="id_sheet_name"> Sheet Name </label></strong>
+						{{form.sheet_name}}
+			
+	
+						<strong><label for="id_sheet_file"> Upload Sheet PDF Here </label></strong>
+						{{form.sheet_file}}
+			
+						
+		
+					
+						<button type="submit" class="btn btn-primary submit_button"> Submit </button>
+				
+			</form>
+		</div>	
+
+		<script type="text/javascript">			
+			$("input").addClass("form-control")
+			$("select").addClass("form-control")
+		</script>
+	</body>
+{% endblock %}
+</html>
