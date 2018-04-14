@@ -7,6 +7,10 @@ def index(request):
 	sheet_data = Sheet.objects.all()
 	return render(request, 'sheetreader/home.html', {'sheet_data': sheet_data})
 
+def sheetReader(request, pk):
+	sheet = get_object_or_404(Sheet, pk=pk)
+	return render(request, 'sheetreader/reader.html', {'sheet': sheet})
+
 def newSheet(request):
 	form = SheetForm(request.POST or None, request.FILES or None)
 	if request.method == 'POST':

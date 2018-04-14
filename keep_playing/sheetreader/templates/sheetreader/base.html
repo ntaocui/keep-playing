@@ -22,16 +22,17 @@
 		}
 
 	</style>
+	
 </head>
 <body>
 			<nav class="navbar navbar-expand-sm bg-dark navbar-dark" style="height: 58px;">
 				<!-- Brand -->
-				<a class="navbar-brand" href="" id="navbarName"> Keep-Playing by Naitao Cui and Derek Liu </a>
+				<a class="navbar-brand" href="{% url 'sheetreader:index' %}" id="navbarName"> Keep-Playing by Naitao Cui and Derek Liu </a>
 
 				<!-- Links -->
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<a class="nav-link" href=""> Upload another PDF </a>
+						<a class="nav-link" href="{% url 'sheetreader:newSheet' %}"> Upload another PDF </a>
 					</li>
 				</ul>
 				<ul class="navbar-nav">

@@ -6,6 +6,7 @@ app_name = 'sheetreader'
 
 urlpatterns = [
 	path('', views.index, name='index'),
+	path('sheet/<int:pk>/view/', views.sheetReader, name='sheetReader'),
 	path('sheet/create/', views.newSheet, name='newSheet'),
     path('sheet/<int:pk>/update/', views.updateSheet, name='updateSheet'),
     path('delete/', views.deleteSheets, name='deleteSheets'),

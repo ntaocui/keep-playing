@@ -28,7 +28,7 @@
 				{% for sheet in sheet_data %}					
 					<tr>
 						<td scope="col" class="details"> {{ sheet }} </td>  
-						<td><button type="button" class="btn btn-primary btn-sm" data-href="{% url 'sheetreader:updateSheet' sheet.id %}"> Sheet Reader </button></td>	
+						<td><button type="button" class="btn btn-primary btn-sm" data-href="{% url 'sheetreader:sheetReader' sheet.id %}"> Sheet Reader </button></td>	
 						<td><button type="button" class="btn btn-primary btn-sm" data-href="{% url 'sheetreader:updateSheet' sheet.id %}"> Edit Me </button></td>					
 						<td scope="col" class="deleteCol"> <input name="items" class="checkboxes" type="checkbox" value="{{ sheet.pk }}"> </td>
 					</tr>
