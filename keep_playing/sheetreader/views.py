@@ -9,7 +9,7 @@ def index(request):
 
 def sheetReader(request, pk):
 	sheet = get_object_or_404(Sheet, pk=pk)
-	return render(request, 'sheetreader/reader.html', {'sheet': sheet})
+	return render(request, 'sheetreader/reader2.html', {'sheet': sheet})
 
 def newSheet(request):
 	form = SheetForm(request.POST or None, request.FILES or None)

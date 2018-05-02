@@ -5,6 +5,8 @@
 {% block content %}
 <head>
 	<script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+  <script type="text/javascript" src="{% static 'sheetreader/headtrackr.js' %}"></script>
+  
 	<style type="text/css">
 		#the-canvas{
 			display: block;
@@ -12,6 +14,7 @@
 			width: 70%;
 		}
 	</style>
+
 </head>
 <body>
 
@@ -21,13 +24,57 @@
 	&nbsp; &nbsp;
 	<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	&nbsp; &nbsp;
-	<button class="test btn btn-primary" onclick="scrollDown()"><strong>Down</strong></button>
-	<button class="btn btn-primary" onclick="scrollup()"><strong>Up</strong></button>
+	<button class="test2 btn btn-primary" onclick="calibrate()"><strong>Calibrate</strong></button>
 </div>
 
 <canvas id="the-canvas"></canvas>
+<canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
+<video id="inputVideo" autoplay loop ></video>
+<script type="text/javascript">
+    var videoInput = document.getElementById('inputVideo');
+    var canvasInput = document.getElementById('inputCanvas');
+  
+    var htracker = new headtrackr.Tracker({calcAngles: true});   
+    htracker.init(videoInput, canvasInput);
+    htracker.start(); 
+
+    function calibrate(){
+
+        var calib = true;
+        var angle = 0;
+        var sum_angle= 0;
+        var avg_angle = 0;
+        var abs_difference = 0;
+        document.addEventListener('facetrackingEvent', 
+            function (event) {
+                // if the calibration button was clicked
+                if(calib){
+                    calib = false;
+                    for (var i = 100; i >= 0; i--) {
+                        sum_angle += event.angle * 180 / Math.PI;
+                    }
+                    avg_angle = sum_angle/100;
+                }
+                angle = event.angle * 180 / Math.PI;
+
+                abs_difference = avg_angle - angle;
+                console.log(abs_difference)
+                if(abs_difference > 20){
+                    console.log('hey!')
+                }
+                else if(abs_difference < -20){
+                    console.log('ho!')
+                }
+            }            
+        );
+    }
+</script>
+
+
 
 <script type="text/javascript">
+
+
 
 var x = 150;
 
@@ -35,6 +82,10 @@ $(document).ready(function() {
     $(".test").click(function(event){
         $('html, body').animate({scrollTop: x+'px'}, 800);
         x += 150;
+    });
+    $(".test2").click(function(event){
+        $('html, body').animate({scrollTop: x+'px'}, 800);
+        x -= 150;
     });
 });
 
