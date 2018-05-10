@@ -22,7 +22,9 @@
 	<span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
 	&nbsp; &nbsp;
 	<button class="test btn btn-primary" onclick="scrollDown()"><strong>Down</strong></button>
-	<button class="btn btn-primary" onclick="scrollup()"><strong>Up</strong></button>
+  <button class="btn btn-primary" onclick="scrollup()"><strong>Up</strong></button>
+  <br>
+  <button class="btn btn-primary" onclick="startDetection()"><strong>Start Detection</strong></button>
 </div>
 
 <canvas id="the-canvas"></canvas>
@@ -136,6 +138,26 @@ pdfjsLib.getDocument(url).then(function(pdfDoc_) {
   // Initial/first page rendering
   renderPage(pageNum);
 });
+
+function startDetection()
+{
+  $.get("{% url 'sheetreader:readGesture'%}", function(data) {detected(data)});
+}
+
+function detected(data)
+{
+  if(data == "Left")
+  {
+    scrollup();
+    startDetection();
+  }
+  else if (data == "Right")
+  {
+    scrollDown();
+    startDetection();
+  }
+}
+
 </script>
 
 </body>

@@ -10,4 +10,5 @@ urlpatterns = [
 	path('sheet/create/', views.newSheet, name='newSheet'),
     path('sheet/<int:pk>/update/', views.updateSheet, name='updateSheet'),
     path('delete/', views.deleteSheets, name='deleteSheets'),
+	path('readGesture', views.readGesture, name="readGesture"),
 ]
